@@ -1,0 +1,27 @@
+IMPLEMENTATION OF STACK USING ARRAY IN OCAML
+
+type 'a stack ={mutable ind:int ; mutable size:int ; mutable elts : 'a array} 
+let init_stack n = {ind=0; size=max n 1; elts = [||]}
+let n_push e p =
+if p.elts = [||]
+then
+begin
+p.elts <- Array.create p.size e;
+p.ind <- 1
+end
+else if p.ind >= p.size then
+begin
+let nt = 2 * p.size in
+let nv = Array.create nt e in
+for j=0 to p.size-1 do nv.(j) <- p.elts.(j) done;
+p.elts <- nv;
+p.size <- nt;
+p.ind <- p.ind + 1
+end
+else
+begin
+p.elts.(p.ind) <- e ;
+p.ind <- p.ind + 1
+end
+
+
